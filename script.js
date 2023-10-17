@@ -45,7 +45,6 @@ overlay.addEventListener("click", function () {
   modal.classList.add("hidden");
   sub.classList.add("hidden");
   overlay.classList.add("hidden");
-  console.log("Welcome");
 });
 
 newsletterButton.addEventListener("click", function (e) {
