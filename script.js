@@ -18,47 +18,36 @@ const btnCloseSub = document.querySelector(".btn--close-sub");
 ///////////////////////////////////////
 // Modal window & Subscribe window
 
-const openModal = function (e) {
+const changeClass = function (el, action, className) {
+  el.classList[action](`${className}`);
+  overlay.classList[action](`${className}`);
+};
+
+btnsOpenModal.forEach((btn) =>
+  btn.addEventListener("click", () => changeClass(modal, "remove", "hidden"))
+);
+btnCloseModal.addEventListener("click", () =>
+  changeClass(modal, "add", "hidden")
+);
+
+newsletterButton.addEventListener("click", function (e) {
   e.preventDefault();
-  modal.classList.remove("hidden");
-  overlay.classList.remove("hidden");
-};
+  changeClass(sub, "remove", "hidden");
+  newsletterInput.value = "";
+});
+btnCloseSub.addEventListener("click", () => changeClass(sub, "add", "hidden"));
 
-const closeModal = function () {
-  modal.classList.add("hidden");
-  overlay.classList.add("hidden");
-};
-
-const openSub = function () {
-  sub.classList.remove("hidden");
-  overlay.classList.remove("hidden");
-};
-
-const closeSub = function () {
-  sub.classList.add("hidden");
-  overlay.classList.add("hidden");
-};
-
-btnsOpenModal.forEach((btn) => btn.addEventListener("click", openModal));
-btnCloseModal.addEventListener("click", closeModal);
 overlay.addEventListener("click", function () {
   modal.classList.add("hidden");
   sub.classList.add("hidden");
   overlay.classList.add("hidden");
 });
 
-newsletterButton.addEventListener("click", function (e) {
-  e.preventDefault();
-  openSub();
-  newsletterInput.value = "";
-});
-btnCloseSub.addEventListener("click", closeSub);
-
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-    closeModal();
+    changeClass(modal, "add", "hidden");
   } else if (e.key === "Escape" && !sub.classList.contains("hidden")) {
-    closeSub();
+    changeClass(sub, "add", "hidden");
   }
 });
 
